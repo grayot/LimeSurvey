@@ -576,6 +576,7 @@ class User extends LSActiveRecord
         $setPermissionsUrl = Yii::app()->getController()->createUrl('userManagement/userPermissions', ['userid' => $this->uid]);
         $setRoleUrl = Yii::app()->getController()->createUrl('userManagement/addRole', ['userid' => $this->uid]);
         $changeOwnershipUrl = Yii::app()->getController()->createUrl('userManagement/takeOwnership');
+        $setTemplatePermissionsUrl = Yii::app()->getController()->createUrl('userManagement/userTemplatePermissions', ['userid' => $this->uid]);
         $deleteUrl = Yii::app()->getController()->createUrl('userManagement/deleteConfirm', ['userid' => $this->uid, 'user' => $this->full_name]);
         
 
@@ -607,6 +608,12 @@ class User extends LSActiveRecord
                 class='btn btn-sm btn-default UserManagement--action--openmodal UserManagement--action--edituser green-border' 
                 style='margin-left: 5px;'
                 data-href='" . $editUrl . "'><i class='fa fa-pencil'></i></button>";
+        $editTemplatePermissionButton = ""
+            . "<button 
+        data-toggle='tooltip' 
+        title='" . gT("Template permissions") . "'
+        class='btn btn-sm btn-default UserManagement--action--openmodal UserManagement--action--templatepermissions' 
+        data-href='" . $setTemplatePermissionsUrl . "'><i class='fa fa-paint-brush'></i></button>";
         $takeOwnershipButton = ""
         . "<button 
                 id='UserManagement--takeown-" . $this->uid . "'
@@ -650,6 +657,7 @@ class User extends LSActiveRecord
                 $addRoleButton,
                 "\n",
                 $userDetail,
+                $editTemplatePermissionButton,
                 $this->parent_id != Yii::app()->session['loginID'] ? $takeOwnershipButton : '',
                 $deleteUserButton]);
         }
